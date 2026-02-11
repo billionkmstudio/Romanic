@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Mary 💝</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Dancing Script', cursive;
+      background: linear-gradient(135deg, #fef5f8 0%, #f3e5f5 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      cursor: pointer;
+    }
+
+    /* 每一頁全屏顯示 */
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    .page.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* 內容容器 */
+    .page-inner {
+      width: 90%;
+      max-width: 900px;
+      height: 85%;
+      max-height: 650px;
+      background: #fefefe;
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 3rem;
+      overflow: hidden;
+    }
+
+    /* 背景浪漫圖案 */
+    .page-inner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('romantic-pattern.png');
+      background-size: 400px;
+      background-repeat: repeat;
+      background-position: center;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-inner > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 封面 - 信封 */
+    .cover-page .page-inner {
+      background: linear-gradient(135deg, #fce4ec 0%, #f3e5f8 100%);
+      flex-direction: column;
+    }
+
+    .envelope {
+      width: 200px;
+      height: 140px;
+      background: linear-gradient(135deg, #f8d7e3 0%, #f0dce8 100%);
+      border-radius: 8px;
+      position: relative;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .envelope::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      background: linear-gradient(135deg, #f3c5d8 0%, #ebd3e3 100%);
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+    }
+
+    .envelope-heart {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+    }
+
+    .cover-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4.5rem;
+      color: #8b6f7d;
+      margin-bottom: 1rem;
+    }
+
+    .cover-subtitle {
+      font-size: 1.4rem;
+      color: #a88b98;
+      margin-bottom: 3rem;
+      font-weight: 400;
+    }
+
+    .open-btn {
+      padding: 1rem 3rem;
+      font-size: 1.3rem;
+      font-family: 'Dancing Script', cursive;
+      background: transparent;
+      border: 2px solid #d4b5c0;
+      color: #8b6f7d;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .open-btn:hover {
+      background: #fce4ec;
+      transform: translateY(-2px);
+    }
+
+    /* Page 1 - Dear Mary (信紙) */
+    .page-1 .page-inner {
+      background: 
+        repeating-linear-gradient(
+          transparent,
+          transparent 39px,
+          #f0e6ed 39px,
+          #f0e6ed 40px
+        ),
+        #fefefe;
+      flex-direction: column;
+    }
+
+    .dear-text {
+      font-size: 2.8rem;
+      color: #8b6f7d;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .mary-name {
+      font-family: 'Great Vibes', cursive;
+      font-size: 5.5rem;
+      color: #8b6f7d;
+    }
+
+    /* Quote pages */
+    .quote-mark {
+      font-size: 5rem;
+      color: #e8d5dd;
+      line-height: 0.5;
+      margin-bottom: 1.5rem;
+      font-family: Georgia, serif;
+    }
+
+    .quote-text {
+      font-size: 2.5rem;
+      color: #8b6f7d;
+      text-align: center;
+      line-height: 1.8;
+      font-weight: 500;
+    }
+
+    /* Photo pages */
+    .photo-container {
+      opacity: 0;
+      transform: translateY(-100px) rotate(-5deg);
+    }
+
+    .page.active .photo-container {
+      animation: photoFloat 2.5s ease-out forwards;
+    }
+
+    @keyframes photoFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px) rotate(-5deg);
+      }
+      60% {
+        transform: translateY(10px) rotate(1deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+    }
+
+    .photo-frame {
+      width: 380px;
+      height: 450px;
+      background: white;
+      padding: 1.2rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      border: 1px solid #f0e6ed;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-caption {
+      margin-top: 1.5rem;
+      font-size: 1.4rem;
+      color: #a88b98;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* Rose page */
+    .rose-container {
+      opacity: 0;
+      transform: scale(0.3) translateY(100px);
+    }
+
+    .page.active .rose-container {
+      animation: roseBloom 2.5s ease-out forwards 0.5s;
+    }
+
+    @keyframes roseBloom {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(100px) rotate(-10deg);
+      }
+      60% {
+        transform: scale(1.05) translateY(-10px) rotate(2deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotate(0deg);
+      }
+    }
+
+    .rose-image {
+      width: 400px;
+      height: 480px;
+    }
+
+    .rose-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(139,111,125,0.25);
+    }
+
+    .final-message {
+      margin-top: 2rem;
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #8b6f7d;
+      opacity: 0;
+    }
+
+    .page.active .final-message {
+      animation: fadeInMsg 1s ease-out forwards 2.5s;
+    }
+
+    @keyframes fadeInMsg {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 花瓣 */
+    .petal {
+      position: fixed;
+      font-size: 2rem;
+      opacity: 0.7;
+      animation: petalFall linear forwards;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    @keyframes petalFall {
+      to {
+        top: 110vh;
+        transform: rotate(360deg);
+      }
+    }
+
+    /* 音符按鈕 */
+    .music-btn {
+      position: fixed;
+      top: 2.5rem;
+      right: 2.5rem;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      background: rgba(252,228,236,0.85);
+      border: 1px solid #f0e6ed;
+      color: #8b6f7d;
+      font-size: 1.6rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1001;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .music-btn.show {
+      display: flex;
+    }
+
+    .music-btn:hover {
+      background: #fce4ec;
+      transform: scale(1.1);
+    }
+
+    /* 重溫按鈕 - 重要修復 */
+    .repeat-btn {
+      position: fixed;
+      bottom: 2.5rem;
+      right: 2.5rem;
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-family: 'Dancing Script', cursive;
+      background: rgba(252,228,236,0.9);
+      border: 2px solid #d4b5c0;
+      color: #8b6f7d;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+      z-index: 1001;
+      box-shadow: 0 5px 20px rgba(212,181,192,0.4);
+      display: none;
+    }
+
+    .repeat-btn.visible {
+      display: block;
+    }
+
+    .repeat-btn:hover {
+      background: #fce4ec;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212,181,192,0.5);
+    }
+
+    /* 頁面指示器 */
+    .indicators {
+      position: fixed;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 0.6rem;
+      z-index: 1000;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: rgba(212,181,192,0.35);
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background: #d4b5c0;
+      width: 26px;
+      border-radius: 5px;
+    }
+
+    /* 手機響應式 */
+    @media (max-width: 768px) {
+      .page-inner {
+        padding: 2rem;
+      }
+
+      .cover-title {
+        font-size: 3.2rem;
+      }
+
+      .cover-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .envelope {
+        width: 160px;
+        height: 110px;
+      }
+
+      .envelope-heart {
+        font-size: 2.2rem;
+      }
+
+      .dear-text {
+        font-size: 2.2rem;
+      }
+
+      .mary-name {
+        font-size: 4rem;
+      }
+
+      .quote-text {
+        font-size: 1.8rem;
+      }
+
+      .photo-frame {
+        width: 280px;
+        height: 340px;
+      }
+
+      .rose-image {
+        width: 300px;
+        height: 370px;
+      }
+
+      .final-message {
+        font-size: 2.5rem;
+      }
+
+      .repeat-btn {
+        font-size: 1rem;
+        padding: 0.8rem 2rem;
+        bottom: 6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 音樂 -->
+  <audio id="music" loop>
+    <source src="paulyudin-piano-inspirational-romantic-380709.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- 音符按鈕 -->
+  <button class="music-btn" id="musicBtn">♪</button>
+
+  <!-- 重溫按鈕 -->
+  <button class="repeat-btn" id="repeatBtn">Repeat ↻</button>
+
+  <!-- 指示器 -->
+  <div class="indicators" id="indicators">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="container" id="container">
+    
+    <!-- 封面 -->
+    <div class="page cover-page active">
+      <div class="page-inner">
+        <div class="envelope">
+          <div class="envelope-heart">💌</div>
+        </div>
+        <h1 class="cover-title">For Mary</h1>
+        <p class="cover-subtitle">A love letter in pages</p>
+        <button class="open-btn" id="openBtn">Open</button>
+      </div>
+    </div>
+
+    <!-- Page 1: Dear Mary -->
+    <div class="page page-1">
+      <div class="page-inner">
+        <p class="dear-text">Dear</p>
+        <p class="mary-name">Mary</p>
+      </div>
+    </div>
+
+    <!-- Page 2: Quote 1 -->
+    <div class="page">
+      <div class="page-inner">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">In a sea of people,<br>I found you</p>
+      </div>
+    </div>
+
+    <!-- Page 3: Photo 1 -->
+    <div class="page">
+      <div class="page-inner">
+        <div class="photo-container">
+          <div class="photo-frame">
+            <img src="Gemini_Generated_Image_dce237dce237dce2-2.png" alt="Together">
+          </div>
+          <p class="photo-caption">Golden days together</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 4: Photo 2 -->
+    <div class="page">
+      <div class="page-inner">
+        <div class="photo-container">
+          <div class="photo-frame">
+            <img src="Gemini_Generated_Image_dce237dce237dce2-3.png" alt="Sunset">
+          </div>
+          <p class="photo-caption">Every sunset with you</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 5: Photo 3 -->
+    <div class="page">
+      <div class="page-inner">
+        <div class="photo-container">
+          <div class="photo-frame">
+            <img src="Gemini_Generated_Image_dce237dce237dce2.png" alt="Cozy">
+          </div>
+          <p class="photo-caption">Warm moments</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 6: Quote 2 -->
+    <div class="page">
+      <div class="page-inner">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">You are the most<br>beautiful accident<br>in my life</p>
+      </div>
+    </div>
+
+    <!-- Page 7: Confession -->
+    <div class="page">
+      <div class="page-inner" style="flex-direction: column;">
+        <p class="quote-text">I want to spend<br>every Valentine's Day<br>with you</p>
+        <p class="quote-text" style="margin-top: 3rem; font-size: 2rem;">For this life and beyond</p>
+      </div>
+    </div>
+
+    <!-- Page 8: Roses -->
+    <div class="page" id="lastPage">
+      <div class="page-inner" style="flex-direction: column;">
+        <div class="rose-container">
+          <div class="rose-image">
+            <img src="影像10-02-2026_22_19.jpeg" alt="Roses">
+          </div>
+        </div>
+        <p class="final-message">Happy Valentine's Day</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    console.log('Script loaded');
+    
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.page');
+    const dots = document.querySelectorAll('.dot');
+    const music = document.getElementById('music');
+    const musicBtn = document.getElementById('musicBtn');
+    const openBtn = document.getElementById('openBtn');
+    const repeatBtn = document.getElementById('repeatBtn');
+    const container = document.getElementById('container');
+    const lastPage = document.getElementById('lastPage');
+    
+    let started = false;
+    let muted = false;
+
+    console.log('Total pages:', pages.length);
+    console.log('Repeat button exists:', repeatBtn !== null);
+
+    // Open button
+    openBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      start();
+    });
+
+    function start() {
+      if (!started) {
+        console.log('Starting...');
+        started = true;
+        musicBtn.classList.add('show');
+        music.volume = 0.3;
+        music.play().catch(() => {});
+        nextPage();
+      }
+    }
+
+    // Click anywhere to turn page
+    container.addEventListener('click', (e) => {
+      if (started && !e.target.closest('.open-btn') && !e.target.closest('.music-btn') && !e.target.closest('.repeat-btn')) {
+        nextPage();
+      }
+    });
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].classList.remove('active');
+        if (dots[currentPage]) {
+          dots[currentPage].classList.remove('active');
+        }
+        
+        currentPage++;
+        console.log('Current page:', currentPage, 'of', pages.length);
+        
+        pages[currentPage].classList.add('active');
+        if (dots[currentPage]) {
+          dots[currentPage].classList.add('active');
+        }
+
+        // Check if last page
+        if (currentPage === pages.length - 1) {
+          console.log('Reached last page!');
+          
+          // Add petals after 2.5 seconds
+          setTimeout(() => {
+            console.log('Adding petals...');
+            addPetals();
+          }, 2500);
+          
+          // Show repeat button after 3 seconds
+          setTimeout(() => {
+            console.log('Showing repeat button...');
+            repeatBtn.classList.add('visible');
+            console.log('Repeat button classes:', repeatBtn.className);
+            console.log('Repeat button display:', window.getComputedStyle(repeatBtn).display);
+          }, 3000);
+        }
+      }
+    }
+
+    // Repeat button
+    repeatBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      console.log('Repeat clicked');
+      restart();
+    });
+
+    function restart() {
+      console.log('Restarting...');
+      
+      // Hide current page
+      pages[currentPage].classList.remove('active');
+      if (dots[currentPage]) {
+        dots[currentPage].classList.remove('active');
+      }
+      
+      // Reset to cover
+      currentPage = 0;
+      pages[0].classList.add('active');
+      if (dots[0]) {
+        dots[0].classList.add('active');
+      }
+      
+      // Hide repeat button
+      repeatBtn.classList.remove('visible');
+      
+      // Remove all petals
+      document.querySelectorAll('.petal').forEach(p => p.remove());
+      
+      // Reset music
+      music.volume = 0.3;
+      music.currentTime = 0;
+    }
+
+    function addPetals() {
+      const symbols = ['🌸', '🌹', '💐', '🌺'];
+      for (let i = 0; i < 35; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.top = '-50px';
+        petal.style.animationDelay = Math.random() * 3 + 's';
+        petal.style.animationDuration = (6 + Math.random() * 3) + 's';
+        document.body.appendChild(petal);
+      }
+      console.log('Petals added');
+    }
+
+    // Music control
+    musicBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      muted = !muted;
+      music.muted = muted;
+      musicBtn.textContent = muted ? '♪̸' : '♪';
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+      if (started && (e.key === 'ArrowRight' || e.key === ' ')) {
+        e.preventDefault();
+        nextPage();
+      }
+    });
+  </script>
+</body>
+</html>
