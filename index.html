@@ -369,6 +369,7 @@
       z-index: 1001;
       box-shadow: 0 5px 20px rgba(212,181,192,0.4);
       display: none;
+      pointer-events: auto;
     }
 
     .repeat-btn.visible {
@@ -409,7 +410,7 @@
     /* 手機響應式 */
     @media (max-width: 768px) {
       .page-inner {
-        padding: 2rem;
+        padding: 2rem 1.5rem;
         width: 85%;
         height: 75%;
       }
@@ -428,12 +429,14 @@
         bottom: 1rem;
       }
 
-      /* Repeat按鈕移到版面外 */
+      /* Repeat按鈕移到版面外底部 */
       .repeat-btn {
-        bottom: 1rem;
-        right: 1.5rem;
+        bottom: 0.8rem;
+        right: 50%;
+        transform: translateX(50%);
         font-size: 1rem;
-        padding: 0.8rem 2rem;
+        padding: 0.7rem 2rem;
+        left: auto;
       }
 
       .cover-title {
@@ -470,13 +473,17 @@
         height: 340px;
       }
 
+      /* 手機版玫瑰圖片縮小 */
       .rose-image {
-        width: 300px;
-        height: 370px;
+        width: 260px;
+        height: 320px;
       }
 
+      /* 手機版最終訊息 */
       .final-message {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        margin-top: 1.5rem;
+        text-align: center;
       }
     }
   </style>
@@ -589,7 +596,7 @@
 
     <!-- Page 8: Roses -->
     <div class="page" id="lastPage">
-      <div class="page-inner" style="flex-direction: column;">
+      <div class="page-inner" style="flex-direction: column; justify-content: center;">
         <div class="rose-container">
           <div class="rose-image">
             <img src="影像10-02-2026_22_19.jpeg" alt="Roses">
