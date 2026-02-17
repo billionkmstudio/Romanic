@@ -369,7 +369,6 @@
       z-index: 1001;
       box-shadow: 0 5px 20px rgba(212,181,192,0.4);
       display: none;
-      pointer-events: auto;
     }
 
     .repeat-btn.visible {
@@ -407,36 +406,24 @@
       border-radius: 5px;
     }
 
+    /* 版權聲明 */
+    .copyright {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      color: rgba(139, 111, 125, 0.6);
+      font-family: 'Dancing Script', cursive;
+      font-weight: 400;
+      z-index: 900;
+      text-align: center;
+    }
+
     /* 手機響應式 */
     @media (max-width: 768px) {
       .page-inner {
-        padding: 2rem 1.5rem;
-        width: 85%;
-        height: 75%;
-      }
-
-      /* 音符按鈕移到版面外上方 */
-      .music-btn {
-        top: 1rem;
-        right: 1.5rem;
-        width: 50px;
-        height: 50px;
-        font-size: 1.4rem;
-      }
-
-      /* 頁面指示器移到版面外下方 */
-      .indicators {
-        bottom: 1rem;
-      }
-
-      /* Repeat按鈕移到版面外底部 */
-      .repeat-btn {
-        bottom: 0.8rem;
-        right: 50%;
-        transform: translateX(50%);
-        font-size: 1rem;
-        padding: 0.7rem 2rem;
-        left: auto;
+        padding: 2rem;
       }
 
       .cover-title {
@@ -473,17 +460,24 @@
         height: 340px;
       }
 
-      /* 手機版玫瑰圖片縮小 */
       .rose-image {
-        width: 260px;
-        height: 320px;
+        width: 300px;
+        height: 370px;
       }
 
-      /* 手機版最終訊息 */
       .final-message {
-        font-size: 2rem;
-        margin-top: 1.5rem;
-        text-align: center;
+        font-size: 2.5rem;
+      }
+
+      .repeat-btn {
+        font-size: 1rem;
+        padding: 0.8rem 2rem;
+        bottom: 6rem;
+      }
+
+      .copyright {
+        font-size: 0.7rem;
+        bottom: 1rem;
       }
     }
   </style>
@@ -510,6 +504,11 @@
     <div class="dot"></div>
     <div class="dot"></div>
     <div class="dot"></div>
+  </div>
+
+  <!-- 版權聲明 -->
+  <div class="copyright">
+    Copyright © Billion Studio 2026. All rights reserved.
   </div>
 
   <div class="container" id="container">
@@ -596,7 +595,7 @@
 
     <!-- Page 8: Roses -->
     <div class="page" id="lastPage">
-      <div class="page-inner" style="flex-direction: column; justify-content: center;">
+      <div class="page-inner" style="flex-direction: column;">
         <div class="rose-container">
           <div class="rose-image">
             <img src="影像10-02-2026_22_19.jpeg" alt="Roses">
